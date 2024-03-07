@@ -300,9 +300,6 @@ h2 {
         margin-left: 10px;
         margin-bottom: 10px;
     }
-    .cell {
-      width: 60px;  
-    }
     h1 {
         transform: translateY(40px) translateX(20px);
     }
