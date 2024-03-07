@@ -326,3 +326,9 @@ h2 {
     line-height: 1.2;
   }
 }
+@media (max-width: 407px) {
+  .navbar-title {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
