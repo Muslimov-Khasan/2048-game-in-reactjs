@@ -358,7 +358,7 @@ const Game2048 = () => {
   return (
     <>
       <div className="App">
-        {/* <div className="box">
+        <div className="box">
           <h1 className="title">2048</h1>
           <ul className="navbar-list">
             <li className="navbar-item">
@@ -374,7 +374,7 @@ const Game2048 = () => {
               <p className="result">{highScore}</p>
             </li>
           </ul>
-        </div> */}
+        </div>
         <button className="restart-btn" onClick={() => restartGame()}>
           Yangi o’yin
         </button>

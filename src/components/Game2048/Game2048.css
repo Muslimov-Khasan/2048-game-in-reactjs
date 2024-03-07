@@ -279,29 +279,32 @@ h2 {
 
 @media (max-width: 430px) {
     .board {
-      width: 100%;
-      margin: 0 auto;
-      transform: translateX(0);
+        width: 100%;
+        margin: 0 auto;
+        transform: translateX(0);
     }
   
     .restart-btn {
-      width: 100%;
-      transform: translateX(0);
+        width: 100%;
+        transform: translateX(0);
     }
   
     .navbar-list {
-      align-items: center;
+        align-items: center;
+        overflow: hidden; /* Prevent scrolling */
     }
   
     .navbar-item {
-      width: 134px;
-      margin-left: 22px;
-      margin-bottom: 10px;
+        width: 134px;
+        margin-left: 22px;
+        margin-bottom: 10px;
     }
   
     h1 {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  
-    /* Add more styles as needed for smaller screens */
-  }
+
+    body {
+        overflow: hidden; /* Prevent scrolling from bottom of the screen */
+    }
+}
