@@ -1,0 +1,279 @@
+.App {
+    text-align: center;
+  }
+  
+  .box {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .board {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  /* App.css */
+  .react-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .react-modal-content {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* App.css */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #333;
+  }
+  
+  .restart-btn {
+    width: 398px;
+    height: 52px;
+    top: 181px;
+    left: 16px;
+    padding: 14px, 16px, 14px, 16px;
+    border-radius: 6px;
+    border: 1px;
+    gap: 6px;
+    background-color: rgba(46, 144, 250, 1);
+    color: #fff;
+  }
+  
+  .navbar-list {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  .navbar-item {
+    width: 133px;
+    height: auto;
+    padding: 0 37px;
+    background-color: rgba(239, 248, 255, 1);
+    margin-left: 22px;
+  }
+  
+  .modal-restart {
+    width: 100%;
+    height: 55px;
+    border-radius: 6px;
+    gap: 6px;
+    border: none;
+    background-color: rgba(46, 144, 250, 1);
+    margin: 0 auto;
+    color: #fff;
+  }
+  
+  .navbar-title {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(83, 177, 253, 1);
+  }
+  
+  .result {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(23, 92, 211, 1);
+  }
+  
+  h1 {
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(23, 92, 211, 1);
+    transform: translateY(30px);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .cell {
+    width: 80px;
+    height: 80px;
+    border: 20px solid rgba(254, 251, 232, 1);
+    display: flex;
+    align-items: center;
+    background-color: #cdc1b4;
+    justify-content: center;
+    font-size: 24px;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Apply the animation and transition to the tile values */
+  .value-2,
+  .value-4,
+  .value-8,
+  .value-16,
+  .value-32,
+  .value-64,
+  .value-128,
+  .value-512,
+  .value-1024,
+  .value-2048 {
+    animation: fadeIn 0.5s ease-out; /* Adjust the duration and timing function as needed */
+    transition: background-color 0.3s ease; /* Add a transition effect to background-color */
+  }
+  
+  .value-2 {
+    background-color: rgba(245, 243, 255, 1);
+    color: rgba(0, 0, 0, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    border-radius: 5px;
+  }
+  
+  .value-4 {
+    background-color: rgba(245, 243, 255, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-8 {
+    background-color: rgba(236, 233, 254, 1);
+    color: #776e65;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-16 {
+    background-color: rgba(195, 181, 253, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-32 {
+    background-color: rgba(195, 181, 253, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-64 {
+    background-color: rgba(164, 138, 251, 1);
+  
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-128 {
+    background-color: rgba(164, 138, 251, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-512 {
+    background-color: rgba(164, 138, 251, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  
+  .value-1024 {
+    background-color: rgba(135, 91, 247, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .value-2048 {
+    background-color: rgba(120, 57, 238, 1);
+    color: rgba(46, 18, 94, 1);
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0em;
+    border-radius: 5px;
+    text-align: left;
+  }
+  
+  /* Add more styles for other tile values as needed */
+  
