@@ -319,3 +319,10 @@ h2 {
     overflow: hidden; /* Prevent scrolling from bottom of the screen */
   }
 }
+
+@media (max-width: 432px) {
+  .navbar-title {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+}
