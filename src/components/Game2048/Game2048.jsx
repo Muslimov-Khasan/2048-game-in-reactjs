@@ -363,7 +363,7 @@ const Game2048 = () => {
           <ul className="navbar-list">
             <li className="navbar-item">
               <h2 className="navbar-title">Reyting</h2>
-              <img src={Vector} alt="Vector" width={40} height={40} />
+              <img src={Vector} alt="Vector" width={30} height={22} />
             </li>
             <li className="navbar-item">
               <h2 className="navbar-title">Natija</h2>

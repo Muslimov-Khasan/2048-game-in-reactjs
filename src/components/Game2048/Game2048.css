@@ -71,10 +71,8 @@
 }
 
 .navbar-item {
-  width: 200px;
+  width: 170px;
   flex: 1; /* Adjust width for smaller screens */
-  height: auto;
-  padding: 0 10px; /* Adjust padding for smaller screens */
   background-color: rgba(239, 248, 255, 1);
   margin-left: 10px; /* Adjust margin for smaller screens */
 }
@@ -159,8 +157,8 @@ h2 {
 .value-512,
 .value-1024,
 .value-2048 {
-  animation: fadeIn 0.5s ease-out; /* Adjust the duration and timing function as needed */
-  transition: background-color 0.3s ease; /* Add a transition effect to background-color */
+  animation: fadeIn 0.5s ease-out 0.2s; /* Add a delay of 0.2 seconds */
+  transition: background-color 0.5s ease; /* Add a transition effect to background-color */
 }
 
 .value-2 {
@@ -221,7 +219,6 @@ h2 {
 }
 .value-64 {
   background-color: rgba(164, 138, 251, 1);
-
   color: rgba(46, 18, 94, 1);
   font-family: Inter;
   font-size: 20px;
@@ -278,34 +275,47 @@ h2 {
 }
 
 @media (max-width: 432px) {
-    .board {
-        width: 100%;
-        margin: 0 auto;
-        transform: translateX(0);
-    }
-  
-    .restart-btn {
-        width: 100%;
-        transform: translateX(0);
-    }
-  
-    .navbar-list {
-        transform: translateX(-30px);
-        align-items: center;
-        overflow: hidden; /* Prevent scrolling */
-    }
-  
-    .navbar-item {
-        width: 120px;
-        height: 120px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-    }
-    h1 {
-        transform: translateY(40px) translateX(10px);
-    }
+  .board {
+    width: 100%;
+    margin: 0 auto;
+    transform: translateX(0);
+  }
 
-    body {
-        overflow: hidden; /* Prevent scrolling from bottom of the screen */
-    }
+  .restart-btn {
+    margin-bottom: 22px;
+    width: 90%;
+    transform: translateX(0);
+  }
+
+  .navbar-list {
+    transform: translateX(-30px);
+    align-items: center;
+    overflow: hidden; /* Prevent scrolling */
+  }
+
+  .navbar-item {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+
+  }
+
+  .navbar-title {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+
+  h1 {
+    transform: translateY(40px) translateX(10px);
+  }
+
+  .cell {
+    width: 103px;
+    height: 60px;
+  }
+
+  body {
+    overflow: hidden; /* Prevent scrolling from bottom of the screen */
+  }
 }
