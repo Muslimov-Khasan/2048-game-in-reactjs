@@ -290,6 +290,7 @@ h2 {
     }
   
     .navbar-list {
+        transform: translateX(-30px);
         align-items: center;
         overflow: hidden; /* Prevent scrolling */
     }
@@ -301,7 +302,7 @@ h2 {
         margin-bottom: 10px;
     }
     h1 {
-        transform: translateY(40px) translateX(20px);
+        transform: translateY(40px) translateX(10px);
     }
 
     body {
