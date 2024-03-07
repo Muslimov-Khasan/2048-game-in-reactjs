@@ -36,8 +36,6 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
-  const [touchStartX, setTouchStartX] = useState(0); // Add this line
-  const [touchStartY, setTouchStartY] = useState(0); // Add this line
 
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
@@ -270,73 +268,91 @@ const Game2048 = () => {
     };
   }, [handleKeyDown]);
 
-  const handleSwipe = (direction) => {
-    setBoard((prevBoard) => {
-      let newBoard;
-      switch (direction) {
-        case 'up':
-          newBoard = moveUp([...prevBoard]);
-          break;
-        case 'down':
-          newBoard = moveDown([...prevBoard]);
-          break;
-        case 'left':
-          newBoard = moveLeft([...prevBoard]);
-          break;
-        case 'right':
-          newBoard = moveRight([...prevBoard]);
-          break;
-        default:
-          return prevBoard;
-      }
   
-      checkGameOver(newBoard);
-      return addRandomTile(newBoard);
-    });
+  const handleTouchStart = (event) => {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
   };
   
-  const handleTouchStart = (e) => {
-    // Store initial touch position
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-  };
+  const handleTouchMove = (event) => {
+    if (!touchStartX || !touchStartY) {
+      return;
+    }
   
-  const handleTouchMove = (e) => {
-    e.preventDefault(); // Prevent scrolling on touch devices
-    const touchEndX = e.touches[0].clientX;
-    const touchEndY = e.touches[0].clientY;
+    const touchEndX = event.touches[0].clientX;
+    const touchEndY = event.touches[0].clientY;
   
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
   
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Horizontal swipe
       if (deltaX > 0) {
-        handleSwipe('right');
+        // Swipe right
+        handleSwipe('ArrowRight');
       } else {
-        handleSwipe('left');
+        // Swipe left
+        handleSwipe('ArrowLeft');
       }
     } else {
-      // Vertical swipe
       if (deltaY > 0) {
-        handleSwipe('down');
+        // Swipe down
+        handleSwipe('ArrowDown');
       } else {
-        handleSwipe('up');
+        // Swipe up
+        handleSwipe('ArrowUp');
       }
+    }
+  
+    // Reset touch start coordinates
+    touchStartX = null;
+    touchStartY = null;
+  };
+  
+  const handleSwipe = (direction) => {
+    // Handle the swipe direction
+    if (direction === 'ArrowUp') {
+      setBoard((prevBoard) => {
+        const newBoard = moveUp([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    } else if (direction === 'ArrowDown') {
+      setBoard((prevBoard) => {
+        const newBoard = moveDown([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    } else if (direction === 'ArrowLeft') {
+      setBoard((prevBoard) => {
+        const newBoard = moveLeft([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    } else if (direction === 'ArrowRight') {
+      setBoard((prevBoard) => {
+        const newBoard = moveRight([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
     }
   };
   
-  // Add touch event listeners
+  // Define touch start coordinates
+  let touchStartX = null;
+  let touchStartY = null;
+
   useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
   
     return () => {
+      window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [handleTouchStart, handleTouchMove]);
+  }, [handleKeyDown, handleTouchStart, handleTouchMove]);
   
 
   return (
