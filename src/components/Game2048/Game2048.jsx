@@ -6,30 +6,30 @@ import React, { useState, useEffect, useCallback } from "react";
 const BOARD_SIZE = 4;
 
 const initializeBoard = () => {
-    const board = Array.from({ length: BOARD_SIZE }, () =>
-      Array(BOARD_SIZE).fill(null)
-    );
-    return addRandomTile(addRandomTile(board));
-  };
-  
+  const board = Array.from({ length: BOARD_SIZE }, () =>
+    Array(BOARD_SIZE).fill(null)
+  );
+  return addRandomTile(addRandomTile(board));
+};
+
 const addRandomTile = (board) => {
-    const emptyCells = [];
-    for (let i = 0; i < BOARD_SIZE; i++) {
-      for (let j = 0; j < BOARD_SIZE; j++) {
-        if (board[i][j] === null) {
-          emptyCells.push([i, j]);
-        }
+  const emptyCells = [];
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    for (let j = 0; j < BOARD_SIZE; j++) {
+      if (board[i][j] === null) {
+        emptyCells.push([i, j]);
       }
     }
-  
-    if (emptyCells.length === 0) {
-      return board;
-    }
-  
-    const [i, j] = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    board[i][j] = Math.random() < 0.9 ? 2 : 4;
+  }
+
+  if (emptyCells.length === 0) {
     return board;
-  };
+  }
+
+  const [i, j] = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  board[i][j] = Math.random() < 0.9 ? 2 : 4;
+  return board;
+};
 
 const Game2048 = () => {
   const [board, setBoard] = useState(initializeBoard);
@@ -167,22 +167,23 @@ const Game2048 = () => {
         setIsModalOpen(true);
       }
     }
-    const totalScore = currentBoard.flat().reduce((acc, cell) => acc + (cell || 0), 0);
-    const storedHighScore = localStorage.getItem('highScore');
+    const totalScore = currentBoard
+      .flat()
+      .reduce((acc, cell) => acc + (cell || 0), 0);
+    const storedHighScore = localStorage.getItem("highScore");
 
     if (!storedHighScore || totalScore > parseInt(storedHighScore, 10)) {
-        localStorage.setItem('highScore', totalScore.toString());
-        setHighScore(totalScore);
-      }
-    
+      localStorage.setItem("highScore", totalScore.toString());
+      setHighScore(totalScore);
+    }
   };
   useEffect(() => {
-    const storedHighScore = localStorage.getItem('highScore');
+    const storedHighScore = localStorage.getItem("highScore");
     if (storedHighScore) {
       setHighScore(parseInt(storedHighScore, 10));
     }
   }, []);
-  
+
   const hasMoves = (currentBoard) => {
     // Check for possible moves by iterating through the board
     // and comparing adjacent cells to see if they can be merged or moved
@@ -268,68 +269,67 @@ const Game2048 = () => {
     };
   }, [handleKeyDown]);
 
-  
   const handleTouchStart = (event) => {
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
   };
-  
+
   const handleTouchMove = (event) => {
     if (!touchStartX || !touchStartY) {
       return;
     }
-  
+
     const touchEndX = event.touches[0].clientX;
     const touchEndY = event.touches[0].clientY;
-  
+
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-  
+
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX > 0) {
         // Swipe right
-        handleSwipe('ArrowRight');
+        handleSwipe("ArrowRight");
       } else {
         // Swipe left
-        handleSwipe('ArrowLeft');
+        handleSwipe("ArrowLeft");
       }
     } else {
       if (deltaY > 0) {
         // Swipe down
-        handleSwipe('ArrowDown');
+        handleSwipe("ArrowDown");
       } else {
         // Swipe up
-        handleSwipe('ArrowUp');
+        handleSwipe("ArrowUp");
       }
     }
-  
+
     // Reset touch start coordinates
     touchStartX = null;
     touchStartY = null;
   };
-  
+
   const handleSwipe = (direction) => {
     // Handle the swipe direction
-    if (direction === 'ArrowUp') {
+    if (direction === "ArrowUp") {
       setBoard((prevBoard) => {
         const newBoard = moveUp([...prevBoard]);
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
-    } else if (direction === 'ArrowDown') {
+    } else if (direction === "ArrowDown") {
       setBoard((prevBoard) => {
         const newBoard = moveDown([...prevBoard]);
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
-    } else if (direction === 'ArrowLeft') {
+    } else if (direction === "ArrowLeft") {
       setBoard((prevBoard) => {
         const newBoard = moveLeft([...prevBoard]);
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
-    } else if (direction === 'ArrowRight') {
+    } else if (direction === "ArrowRight") {
       setBoard((prevBoard) => {
         const newBoard = moveRight([...prevBoard]);
         checkGameOver(newBoard);
@@ -337,23 +337,22 @@ const Game2048 = () => {
       });
     }
   };
-  
+
   // Define touch start coordinates
   let touchStartX = null;
   let touchStartY = null;
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-  
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-  
 
   return (
     <>
@@ -367,7 +366,9 @@ const Game2048 = () => {
             </li>
             <li className="navbar-item">
               <h2 className="navbar-title">Natija</h2>
-              <p className="result">{board.flat().reduce((acc, cell) => acc + (cell || 0), 0)}</p>
+              <p className="result">
+                {board.flat().reduce((acc, cell) => acc + (cell || 0), 0)}
+              </p>
             </li>
             <li className="navbar-item">
               <h2 className="navbar-title">Yuqori natija</h2>
@@ -394,9 +395,9 @@ const Game2048 = () => {
           ))}
         </div>
         {isGameOver && <GameOverModal />}
-      <div className="rating">
-        <p>Reytingdagi o’rin</p>
-      </div>
+        <div className="rating">
+          <p>Reytingdagi o’rin</p>
+        </div>
       </div>
     </>
   );
