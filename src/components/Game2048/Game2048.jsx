@@ -269,55 +269,45 @@ const Game2048 = () => {
     };
   }, [handleKeyDown]);
 
-  let isScrolling = false;
-
   const handleTouchStart = (event) => {
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
-    isScrolling = false;
   };
-  
+
   const handleTouchMove = (event) => {
     if (!touchStartX || !touchStartY) {
       return;
     }
-  
+
     const touchEndX = event.touches[0].clientX;
     const touchEndY = event.touches[0].clientY;
-  
+
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-  
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-      isScrolling = true;
+
+    // Determine the direction of the swipe
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        // Swipe right
+        handleSwipe("ArrowRight");
+      } else {
+        // Swipe left
+        handleSwipe("ArrowLeft");
+      }
+    } else {
+      if (deltaY > 0) {
+        // Swipe down
+        handleSwipe("ArrowDown");
+      } else {
+        // Swipe up
+        handleSwipe("ArrowUp");
+      }
     }
-  
+
     // Reset touch start coordinates
     touchStartX = null;
     touchStartY = null;
   };
-  
-  const handleTouchEnd = () => {
-    if (!isScrolling) {
-      // Handle your swipe or tap actions here
-    }
-  };
-  
-  // Add event listeners
-  window.addEventListener('touchstart', handleTouchStart);
-  window.addEventListener('touchmove', handleTouchMove, { passive: false });
-  window.addEventListener('touchend', handleTouchEnd);
-  
-  // Remove event listeners on component unmount or cleanup
-  useEffect(() => {
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, []);
-  
-  
 
   const handleSwipe = (direction) => {
     // Handle the swipe direction
