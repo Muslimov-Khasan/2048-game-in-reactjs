@@ -33,8 +33,6 @@
 }
 
 .react-modal-content {
-  width: 366px;
-  height: 221px;
   position: relative;
   background-color: white;
   padding: 20px;
@@ -49,7 +47,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
   background: none;
   border: none;
@@ -80,11 +78,12 @@
 }
 
 .modal-restart {
-  width: 100%;
+  width: 334px;
   height: 55px;
   border-radius: 6px;
-  gap: 6px;
   border: none;
+  text-align: center;
+  transform: translateX(20px);
   background-color: rgba(46, 144, 250, 1);
   margin: 0 auto;
   color: #fff;
