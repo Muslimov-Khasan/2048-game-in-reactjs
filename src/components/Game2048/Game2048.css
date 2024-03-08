@@ -33,6 +33,8 @@
 }
 
 .react-modal-content {
+  width: 366px;
+  height: 221px;
   position: relative;
   background-color: white;
   padding: 20px;
@@ -297,14 +299,12 @@ h2 {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
-
   }
 
   .navbar-title {
     font-size: 16px;
     line-height: 1.2;
   }
-
 
   h1 {
     transform: translateY(40px) translateX(10px);
