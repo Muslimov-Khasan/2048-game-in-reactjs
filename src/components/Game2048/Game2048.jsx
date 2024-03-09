@@ -276,41 +276,44 @@ const Game2048 = () => {
 
   const handleTouchMove = (event) => {
     event.preventDefault(); // Prevent the default behavior
-  
+
     if (!touchStartX || !touchStartY) {
       return;
     }
-  
+
+    // Adjust the threshold for intentional vs. accidental swipes
+    const threshold = 50; // Example threshold value, adjust as need
+
     const touchEndX = event.touches[0].clientX;
     const touchEndY = event.touches[0].clientY;
-  
+
     const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;  
-  
+    const deltaY = touchEndY - touchStartY;
+
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 10) {
+      if (deltaX > threshold) {
         // Swipe right
         handleSwipe('ArrowRight');
-      } else {
+      } else if (deltaX < -threshold) {
         // Swipe left
         handleSwipe('ArrowLeft');
       }
     } else {
-      if (deltaY > 0) {
+      if (deltaY > threshold) {
         // Swipe down
         handleSwipe('ArrowDown');
-      } else {
+      } else if (deltaY < -threshold) {
         // Swipe up
         handleSwipe('ArrowUp');
       }
     }
   
+
     // Reset touch start coordinates
     touchStartX = null;
     touchStartY = null;
   };
-  
 
   const handleSwipe = (direction) => {
     // Handle the swipe direction
@@ -348,15 +351,17 @@ const Game2048 = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown, true);
     window.addEventListener("touchstart", handleTouchStart, true);
-    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
-  
+    window.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+      capture: true,
+    });
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown, true);
       window.removeEventListener("touchstart", handleTouchStart, true);
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-  
 
   return (
     <>
