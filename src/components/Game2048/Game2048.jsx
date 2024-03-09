@@ -285,11 +285,11 @@ const Game2048 = () => {
     const touchEndY = event.touches[0].clientY;
   
     const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
+    const deltaY = touchEndY - touchStartY;  
   
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 0) {
+      if (deltaX > 10) {
         // Swipe right
         handleSwipe('ArrowRight');
       } else {
