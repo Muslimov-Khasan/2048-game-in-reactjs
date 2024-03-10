@@ -116,7 +116,7 @@ h1 {
   line-height: 32px;
   letter-spacing: 0em;
   text-align: center;
-  color: rgba(23, 92, 211, 1);
+  color: red;
   transform: translateY(30px);
 }
 
