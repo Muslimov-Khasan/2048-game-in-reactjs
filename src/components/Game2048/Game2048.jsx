@@ -359,19 +359,22 @@ const Game2048 = () => {
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
   useEffect(() => {
-    const handleResize = () => {
+    const setFullScreen = () => {
       const appContainer = document.querySelector(".App");
       if (appContainer) {
-        appContainer.style.width = `${window.innerWidth}px`;
+        appContainer.style.width = "100%";
         appContainer.style.height = `${window.innerHeight}px`;
       }
     };
 
-    handleResize(); // Set initial dimensions
-    window.addEventListener("resize", handleResize);
+    // Set initial full screen
+    setFullScreen();
+
+    // Update full screen on window resize
+    window.addEventListener("resize", setFullScreen);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", setFullScreen);
     };
   }, []);
   return (
