@@ -310,6 +310,7 @@ const Game2048 = () => {
     touchStartX = null;
     touchStartY = null;
   };
+
   const handleSwipe = (direction) => {
     // Handle the swipe direction
     if (direction === "ArrowUp") {
@@ -318,17 +319,26 @@ const Game2048 = () => {
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
-  
-      // Check if the environment is within Telegram webview
-      const isTelegramWebview = window.innerWidth <= 600 && window.innerHeight <= 600;
-      if (isTelegramWebview) {
-        // If it's within Telegram webview, close the webview
-        window.close();
-      }
-    } 
-    // handle other directions as needed
+    } else if (direction === "ArrowDown") {
+      setBoard((prevBoard) => {
+        const newBoard = moveDown([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    } else if (direction === "ArrowLeft") {
+      setBoard((prevBoard) => {
+        const newBoard = moveLeft([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    } else if (direction === "ArrowRight") {
+      setBoard((prevBoard) => {
+        const newBoard = moveRight([...prevBoard]);
+        checkGameOver(newBoard);
+        return addRandomTile(newBoard);
+      });
+    }
   };
-  
 
   // Define touch start coordinates
   let touchStartX = null;
