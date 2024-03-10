@@ -311,7 +311,6 @@ const Game2048 = () => {
     touchStartY = null;
   };
   
-
   const handleSwipe = (direction) => {
     // Handle the swipe direction
     if (direction === "ArrowUp") {
