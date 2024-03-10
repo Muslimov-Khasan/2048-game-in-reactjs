@@ -221,33 +221,31 @@ const Game2048 = () => {
   }, []);
 
   const hasMoves = (currentBoard) => {
-    // Check for possible moves by iterating through the board
-    // and comparing adjacent cells to see if they can be merged or moved
-
     for (let i = 0; i < BOARD_SIZE; i++) {
-      for (let j = 0; j < BOARD_SIZE; j++) {
-        const currentCell = currentBoard[i][j];
+        for (let j = 0; j < BOARD_SIZE; j++) {
+            const currentCell = currentBoard[i][j];
 
-        // Check neighboring cells to the right
-        if (
-          j < BOARD_SIZE - 1 &&
-          (currentCell === null || currentCell === currentBoard[i][j + 1])
-        ) {
-          return true;
-        }
+            // Check neighboring cells to the right
+            if (
+                j < BOARD_SIZE - 1 &&
+                (currentCell === null || currentCell === currentBoard[i][j + 1])
+            ) {
+                return true;
+            }
 
-        // Check neighboring cells below
-        if (
-          i < BOARD_SIZE - 1 &&
-          (currentCell === null || currentCell === currentBoard[i + 1][j])
-        ) {
-          return true;
+            // Check neighboring cells below
+            if (
+                i < BOARD_SIZE - 1 &&
+                (currentCell === null || currentCell === currentBoard[i + 1][j])
+            ) {
+                return true;
+            }
         }
-      }
     }
 
     return false;
-  };
+};
+
 
   const GameOverModal = () => (
     <Modal
