@@ -344,18 +344,21 @@ const Game2048 = () => {
   let touchStartX = null;
   let touchStartY = null;
 
- useEffect(() => {
-  window.addEventListener("keydown", handleKeyDown, true);
-  window.addEventListener("touchstart", handleTouchStart, true);
-  window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
-
-  return () => {
-    window.removeEventListener("keydown", handleKeyDown, true);
-    window.removeEventListener("touchstart", handleTouchStart, true);
-    window.removeEventListener("touchmove", handleTouchMove);
-  };
-}, [handleKeyDown, handleTouchStart, handleTouchMove]);
-
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown, true);
+    window.addEventListener("touchstart", handleTouchStart, true);
+    window.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+      capture: true,
+    });
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown, true);
+      window.removeEventListener("touchstart", handleTouchStart, true);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [handleKeyDown, handleTouchStart, handleTouchMove]);
+  
 
   return (
     <>
