@@ -344,13 +344,26 @@ const Game2048 = () => {
   let touchStartX = null;
   let touchStartY = null;
 
+
+  
   useEffect(() => {
+    const openFullScreen = () => {
+      const elem = document.documentElement;
+
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    };
+
+    openFullScreen(); // Open full screen when the component mounts
+
     window.addEventListener("keydown", handleKeyDown, true);
     window.addEventListener("touchstart", handleTouchStart, true);
-    window.addEventListener("touchmove", handleTouchMove, {
-      passive: false,
-      capture: true,
-    });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown, true);
@@ -358,7 +371,7 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-
+ 
   return (
     <>
       <div className="App">
