@@ -358,56 +358,7 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-  useEffect(() => {
-    // Function to open fullscreen
-    const openFullscreen = () => {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) {
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-      }
-    };
 
-    // Open fullscreen when the component mounts
-    openFullscreen();
-
-    // Event listener to re-open fullscreen if the user exits
-    const handleFullscreenChange = () => {
-      if (
-        !document.fullscreenElement &&
-        !document.mozFullScreenElement &&
-        !document.webkitFullscreenElement &&
-        !document.msFullscreenElement
-      ) {
-        openFullscreen();
-      }
-    };
-
-    // Add event listener for fullscreen change
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-    document.addEventListener("msfullscreenchange", handleFullscreenChange);
-
-    // Remove event listeners on component unmount
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "mozfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
-    };
-  }, []);
   return (
     <>
       <div className="App">
