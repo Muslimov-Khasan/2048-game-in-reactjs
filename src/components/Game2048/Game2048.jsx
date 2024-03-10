@@ -1,7 +1,7 @@
 import "./Game2048.css";
 import Modal from "react-modal";
 import Vector from "../../Assets/img/Vector.svg";
-import React, { useState, useEffect, useCallback, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const BOARD_SIZE = 4;
 
@@ -37,50 +37,17 @@ const Game2048 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
 
-  useEffect(() => {
-    const openFullScreen = () => {
-      const element = document.documentElement;
-
-      // Check if the fullscreen API is available
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
-      } else if (element.mozRequestFullScreen) { // Firefox
-        element.mozRequestFullScreen();
-      } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        element.webkitRequestFullscreen();
-      } else if (element.msRequestFullscreen) { // IE/Edge
-        element.msRequestFullscreen();
-      }
-    };
-
-    // Check if the screen size is suitable for full screen
-    if (window.innerWidth >= 768 && window.innerHeight >= 768) {
-      openFullScreen();
-    }
-
-    return () => {
-      // Reset styles when component unmounts
-      document.exitFullscreen();
-    };
-  }, []);
+  const openFullScreen = () => {
+    document.documentElement.style.width = "100%";
+    document.documentElement.style.height = "100%";
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.overflow = "hidden";
+  };
 
   // Check if the screen size is suitable for full screen
-  useEffect(() => {
-    // Check if the screen size is suitable for full screen
-    if (window.innerWidth >= 768 && window.innerHeight >= 768) {
-      openFullScreen();
-    }
-
-    return () => {
-      // Reset styles when component unmounts
-      document.documentElement.style.width = "";
-      document.documentElement.style.height = "";
-      document.documentElement.style.margin = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  
+  if (window.innerWidth >= 768 && window.innerHeight >= 768) {
+    openFullScreen();
+  }
 
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
