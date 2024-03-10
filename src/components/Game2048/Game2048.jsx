@@ -37,9 +37,21 @@ const Game2048 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
 
+  const openFullScreen = () => {
+    document.documentElement.style.width = "100%";
+    document.documentElement.style.height = "100%";
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.overflow = "hidden";
+  };
+
+  // Check if the screen size is suitable for full screen
+  if (window.innerWidth >= 768 && window.innerHeight >= 768) {
+    openFullScreen();
+  }
+
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
-    newBoard.forEach((row) => {
+    newBoard.map((row) => {
       // Remove null values
       const filteredRow = row.filter((cell) => cell !== null);
 
@@ -276,41 +288,41 @@ const Game2048 = () => {
 
   const handleTouchMove = (event) => {
     event.preventDefault(); // Prevent the default behavior
-  
+
     if (!touchStartX || !touchStartY) {
       return;
     }
-  
+
     const touchEndX = event.touches[0].clientX;
     const touchEndY = event.touches[0].clientY;
-  
+
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-  
+
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX > 0) {
         // Swipe right
-        handleSwipe('ArrowRight');
+        handleSwipe("ArrowRight");
       } else {
         // Swipe left
-        handleSwipe('ArrowLeft');
+        handleSwipe("ArrowLeft");
       }
     } else {
       if (deltaY > 0) {
         // Swipe down
-        handleSwipe('ArrowDown');
+        handleSwipe("ArrowDown");
       } else {
         // Swipe up
-        handleSwipe('ArrowUp');
+        handleSwipe("ArrowUp");
       }
     }
-  
+
     // Reset touch start coordinates
     touchStartX = null;
     touchStartY = null;
   };
-  
+
   const handleSwipe = (direction) => {
     // Handle the swipe direction
     if (direction === "ArrowUp") {
@@ -351,14 +363,19 @@ const Game2048 = () => {
       passive: false,
       capture: true,
     });
-  
+
     return () => {
+      document.documentElement.style.width = "";
+      document.documentElement.style.height = "";
+      document.documentElement.style.margin = "";
+      document.documentElement.style.overflow = "";
+
+      // Remove event listeners
       window.removeEventListener("keydown", handleKeyDown, true);
       window.removeEventListener("touchstart", handleTouchStart, true);
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-  
 
   return (
     <>
