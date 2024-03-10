@@ -36,8 +36,7 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
-  
-  
+
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
     newBoard.forEach((row) => {
@@ -359,11 +358,24 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-    
+  useEffect(() => {
+    const handleResize = () => {
+      const appContainer = document.querySelector(".App");
+      if (appContainer) {
+        appContainer.style.width = `${window.innerWidth}px`;
+        appContainer.style.height = `${window.innerHeight}px`;
+      }
+    };
+
+    handleResize(); // Set initial dimensions
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <>
-    <div className="fullscreen-container">
-
       <div className="App">
         <div className="box">
           <h1 className="title">2048</h1>
@@ -407,7 +419,6 @@ const Game2048 = () => {
           <p>Reytingdagi o’rin</p>
         </div>
       </div>
-    </div>
     </>
   );
 };
