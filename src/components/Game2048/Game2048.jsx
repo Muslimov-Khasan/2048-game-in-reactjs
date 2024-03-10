@@ -68,7 +68,6 @@ const Game2048 = () => {
     };
   }, [isGameMode]);
   
-
   // Check if the screen size is suitable for full screen
   if (window.innerWidth >= 768 && window.innerHeight >= 768) {
     openFullScreen();
