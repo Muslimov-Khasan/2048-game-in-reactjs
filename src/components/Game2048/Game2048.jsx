@@ -36,6 +36,19 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullScreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullScreen(false);
+      }
+    }
+  };
 
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
@@ -344,26 +357,13 @@ const Game2048 = () => {
   let touchStartX = null;
   let touchStartY = null;
 
-
-  
   useEffect(() => {
-    const openFullScreen = () => {
-      const elem = document.documentElement;
-
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-      }
-    };
-
-    openFullScreen(); // Open full screen when the component mounts
-
     window.addEventListener("keydown", handleKeyDown, true);
     window.addEventListener("touchstart", handleTouchStart, true);
-    window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
+    window.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+      capture: true,
+    });
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown, true);
@@ -371,10 +371,10 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
- 
+  
   return (
     <>
-      <div className="App">
+      <div className={`App ${isFullScreen ? "fullscreen" : ""}`}>
         <div className="box">
           <h1 className="title">2048</h1>
           <ul className="navbar-list">
@@ -397,7 +397,9 @@ const Game2048 = () => {
         <button className="restart-btn" onClick={() => restartGame()}>
           Yangi o’yin
         </button>
-
+        <button className="fullscreen-btn" onClick={toggleFullScreen}>
+          {isFullScreen ? "Exit Fullscreen" : "Fullscreen"}
+        </button>
         <div className="board">
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className="row">
