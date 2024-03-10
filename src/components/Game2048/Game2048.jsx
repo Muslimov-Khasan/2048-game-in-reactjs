@@ -36,13 +36,38 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
+  const [isGameMode, setIsGameMode] = useState(true); // Add game mode state
 
   const openFullScreen = () => {
-    document.documentElement.style.width = "100%";
-    document.documentElement.style.height = "100%";
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.overflow = "hidden";
+    if (isGameMode) {
+      document.documentElement.style.width = "100%";
+      document.documentElement.style.height = "100%";
+      document.documentElement.style.margin = "0";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      // Reset styles when not in game mode
+      document.documentElement.style.width = "";
+      document.documentElement.style.height = "";
+      document.documentElement.style.margin = "";
+      document.documentElement.style.overflow = "";
+    }
   };
+
+  useEffect(() => {
+    // Check if the screen size is suitable for full screen
+    if (window.innerWidth >= 768 && window.innerHeight >= 768 && isGameMode) {
+      openFullScreen();
+    }
+  
+    return () => {
+      // Reset styles when component unmounts or not in game mode
+      document.documentElement.style.width = "";
+      document.documentElement.style.height = "";
+      document.documentElement.style.margin = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isGameMode]);
+  
 
   // Check if the screen size is suitable for full screen
   if (window.innerWidth >= 768 && window.innerHeight >= 768) {
