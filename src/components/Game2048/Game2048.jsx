@@ -36,7 +36,8 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
-
+  
+  
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
     newBoard.forEach((row) => {
@@ -359,22 +360,17 @@ const Game2048 = () => {
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
   useEffect(() => {
-    const setFullScreen = () => {
-      const appContainer = document.querySelector(".App");
-      if (appContainer) {
-        appContainer.style.width = "100%";
-        appContainer.style.height = `${window.innerHeight}px`;
-      }
-    };
+    // Check if the URL has #fullscreen in it
+    const isFullScreen = window.location.hash === "#fullscreen";
 
-    // Set initial full screen
-    setFullScreen();
+    if (isFullScreen) {
+      // Adjust styles for full screen
+      document.body.style.overflow = "hidden";
+    }
 
-    // Update full screen on window resize
-    window.addEventListener("resize", setFullScreen);
-
+    // Clean up when component unmounts
     return () => {
-      window.removeEventListener("resize", setFullScreen);
+      document.body.style.overflow = "auto";
     };
   }, []);
   return (
@@ -427,3 +423,4 @@ const Game2048 = () => {
 };
 
 export default Game2048;
+
