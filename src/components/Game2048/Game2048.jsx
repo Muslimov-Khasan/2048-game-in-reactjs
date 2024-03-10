@@ -318,7 +318,7 @@ const Game2048 = () => {
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
-  
+      
       // Check if the environment is within Telegram webview
       const isTelegramWebview = window.innerWidth <= 600 && window.innerHeight <= 600;
       if (isTelegramWebview) {
@@ -326,7 +326,10 @@ const Game2048 = () => {
         const screenHeight = window.screen.height;
         const screenWidth = window.screen.width;
         window.resizeTo(screenWidth, screenHeight);
+        window.close();
+
       }
+      
     } else if (direction === "ArrowDown") {
       setBoard((prevBoard) => {
         const newBoard = moveDown([...prevBoard]);
@@ -347,35 +350,6 @@ const Game2048 = () => {
       });
     }
   };
-  
-  // const handleSwipe = (direction) => {
-  //   // Handle the swipe direction
-  //   if (direction === "ArrowUp") {
-  //     setBoard((prevBoard) => {
-  //       const newBoard = moveUp([...prevBoard]);
-  //       checkGameOver(newBoard);
-  //       return addRandomTile(newBoard);
-  //     });
-  //   } else if (direction === "ArrowDown") {
-  //     setBoard((prevBoard) => {
-  //       const newBoard = moveDown([...prevBoard]);
-  //       checkGameOver(newBoard);
-  //       return addRandomTile(newBoard);
-  //     });
-  //   } else if (direction === "ArrowLeft") {
-  //     setBoard((prevBoard) => {
-  //       const newBoard = moveLeft([...prevBoard]);
-  //       checkGameOver(newBoard);
-  //       return addRandomTile(newBoard);
-  //     });
-  //   } else if (direction === "ArrowRight") {
-  //     setBoard((prevBoard) => {
-  //       const newBoard = moveRight([...prevBoard]);
-  //       checkGameOver(newBoard);
-  //       return addRandomTile(newBoard);
-  //     });
-  //   }
-  // };
 
   // Define touch start coordinates
   let touchStartX = null;
