@@ -359,30 +359,11 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-    // Inside your Game2048 component
-useEffect(() => {
-  const handleTelegramMessage = (event) => {
-    // Handle messages received from Telegram
-    const message = event.data;
-
-    if (message.command === 'restartGame') {
-      restartGame();
-    } else if (message.command === 'swipe') {
-      handleSwipe(message.direction);
-    }
-  };
-
-  // Add event listener for messages from Telegram
-  window.addEventListener('message', handleTelegramMessage);
-
-  // Cleanup the event listener on component unmount
-  return () => {
-    window.removeEventListener('message', handleTelegramMessage);
-  };
-}, [restartGame, handleSwipe]);
-
+    
   return (
     <>
+    <div className="fullscreen-container">
+
       <div className="App">
         <div className="box">
           <h1 className="title">2048</h1>
@@ -426,6 +407,7 @@ useEffect(() => {
           <p>Reytingdagi o’rin</p>
         </div>
       </div>
+    </div>
     </>
   );
 };
