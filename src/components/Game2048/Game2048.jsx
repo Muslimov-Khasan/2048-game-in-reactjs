@@ -36,8 +36,7 @@ const Game2048 = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
-  
-  
+
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
     newBoard.forEach((row) => {
@@ -311,7 +310,6 @@ const Game2048 = () => {
     touchStartX = null;
     touchStartY = null;
   };
-
   const handleSwipe = (direction) => {
     // Handle the swipe direction
     if (direction === "ArrowUp") {
@@ -320,6 +318,15 @@ const Game2048 = () => {
         checkGameOver(newBoard);
         return addRandomTile(newBoard);
       });
+  
+      // Check if the environment is within Telegram webview
+      const isTelegramWebview = window.innerWidth <= 600 && window.innerHeight <= 600;
+      if (isTelegramWebview) {
+        // If it's within Telegram webview, adjust the screen size
+        const screenHeight = window.screen.height;
+        const screenWidth = window.screen.width;
+        window.resizeTo(screenWidth, screenHeight);
+      }
     } else if (direction === "ArrowDown") {
       setBoard((prevBoard) => {
         const newBoard = moveDown([...prevBoard]);
@@ -340,6 +347,35 @@ const Game2048 = () => {
       });
     }
   };
+  
+  // const handleSwipe = (direction) => {
+  //   // Handle the swipe direction
+  //   if (direction === "ArrowUp") {
+  //     setBoard((prevBoard) => {
+  //       const newBoard = moveUp([...prevBoard]);
+  //       checkGameOver(newBoard);
+  //       return addRandomTile(newBoard);
+  //     });
+  //   } else if (direction === "ArrowDown") {
+  //     setBoard((prevBoard) => {
+  //       const newBoard = moveDown([...prevBoard]);
+  //       checkGameOver(newBoard);
+  //       return addRandomTile(newBoard);
+  //     });
+  //   } else if (direction === "ArrowLeft") {
+  //     setBoard((prevBoard) => {
+  //       const newBoard = moveLeft([...prevBoard]);
+  //       checkGameOver(newBoard);
+  //       return addRandomTile(newBoard);
+  //     });
+  //   } else if (direction === "ArrowRight") {
+  //     setBoard((prevBoard) => {
+  //       const newBoard = moveRight([...prevBoard]);
+  //       checkGameOver(newBoard);
+  //       return addRandomTile(newBoard);
+  //     });
+  //   }
+  // };
 
   // Define touch start coordinates
   let touchStartX = null;
@@ -359,20 +395,7 @@ const Game2048 = () => {
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [handleKeyDown, handleTouchStart, handleTouchMove]);
-  useEffect(() => {
-    // Check if the URL has #fullscreen in it
-    const isFullScreen = window.location.hash === "#fullscreen";
 
-    if (isFullScreen) {
-      // Adjust styles for full screen
-      document.body.style.overflow = "hidden";
-    }
-
-    // Clean up when component unmounts
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
   return (
     <>
       <div className="App">
@@ -423,4 +446,3 @@ const Game2048 = () => {
 };
 
 export default Game2048;
-
