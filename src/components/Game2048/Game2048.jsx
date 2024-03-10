@@ -45,9 +45,22 @@ const Game2048 = () => {
   };
 
   // Check if the screen size is suitable for full screen
-  if (window.innerWidth >= 768 && window.innerHeight >= 768) {
-    openFullScreen();
-  }
+  useEffect(() => {
+    // Check if the screen size is suitable for full screen
+    if (window.innerWidth >= 768 && window.innerHeight >= 768) {
+      openFullScreen();
+    }
+
+    return () => {
+      // Reset styles when component unmounts
+      document.documentElement.style.width = "";
+      document.documentElement.style.height = "";
+      document.documentElement.style.margin = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
+  
 
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
