@@ -37,27 +37,7 @@ const Game2048 = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highScore, setHighScore] = useState(0);
   
-  // Inside your Game2048 component
-useEffect(() => {
-  const handleTelegramMessage = (event) => {
-    // Handle messages received from Telegram
-    const message = event.data;
-    if (message.command === 'restartGame') {
-      restartGame();
-    } else if (message.command === 'swipe') {
-      handleSwipe(message.direction);
-    }
-  };
-
-  // Add event listener for messages from Telegram
-  window.addEventListener('message', handleTelegramMessage);
-
-  // Cleanup the event listener on component unmount
-  return () => {
-    window.removeEventListener('message', handleTelegramMessage);
-  };
-}, [restartGame, handleSwipe]);
-
+  
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
     newBoard.forEach((row) => {
