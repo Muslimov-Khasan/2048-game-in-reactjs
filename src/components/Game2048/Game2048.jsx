@@ -276,40 +276,41 @@ const Game2048 = () => {
 
   const handleTouchMove = (event) => {
     event.preventDefault(); // Prevent the default behavior
-
+  
     if (!touchStartX || !touchStartY) {
       return;
     }
-
+  
     const touchEndX = event.touches[0].clientX;
     const touchEndY = event.touches[0].clientY;
-
+  
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-
+  
     // Determine the direction of the swipe
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX > 0) {
         // Swipe right
-        handleSwipe("ArrowRight");
+        handleSwipe('ArrowRight');
       } else {
         // Swipe left
-        handleSwipe("ArrowLeft");
+        handleSwipe('ArrowLeft');
       }
     } else {
       if (deltaY > 0) {
         // Swipe down
-        handleSwipe("ArrowDown");
+        handleSwipe('ArrowDown');
       } else {
         // Swipe up
-        handleSwipe("ArrowUp");
+        handleSwipe('ArrowUp');
       }
     }
-
+  
     // Reset touch start coordinates
     touchStartX = null;
     touchStartY = null;
   };
+  
 
   const handleSwipe = (direction) => {
     // Handle the swipe direction
@@ -344,20 +345,18 @@ const Game2048 = () => {
   let touchStartX = null;
   let touchStartY = null;
 
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown, true);
-    window.addEventListener("touchstart", handleTouchStart, true);
-    window.addEventListener("touchmove", handleTouchMove, {
-      passive: false,
-      capture: true,
-    });
+ useEffect(() => {
+  window.addEventListener("keydown", handleKeyDown, true);
+  window.addEventListener("touchstart", handleTouchStart, true);
+  window.addEventListener("touchmove", handleTouchMove, { passive: false, capture: true });
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown, true);
-      window.removeEventListener("touchstart", handleTouchStart, true);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [handleKeyDown, handleTouchStart, handleTouchMove]);
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown, true);
+    window.removeEventListener("touchstart", handleTouchStart, true);
+    window.removeEventListener("touchmove", handleTouchMove);
+  };
+}, [handleKeyDown, handleTouchStart, handleTouchMove]);
+
 
   return (
     <>
