@@ -73,6 +73,30 @@ const Game2048 = () => {
     openFullScreen();
   }
 
+  const sendScoreToApi = async (id, telegramId, score) => {
+    try {
+      const response = await fetch("https://khasangame.onrender.com/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          telegram_id: telegramId,
+          score: score,
+        }),
+      });
+  
+      if (!response.ok) {
+        console.error("Failed to send score to API:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error while sending score to API:", error.message);
+    }
+  };
+  
+
+
   const moveUp = (currentBoard) => {
     const newBoard = transposeMatrix(currentBoard);
     newBoard.map((row) => {
@@ -217,8 +241,11 @@ const Game2048 = () => {
     const storedHighScore = localStorage.getItem("highScore");
     if (storedHighScore) {
       setHighScore(parseInt(storedHighScore, 10));
+      // Assuming you have an 'id' and 'telegramId' (replace with actual values)
+      sendScoreToApi("your-id", "your-telegram-id", parseInt(storedHighScore, 10));
     }
   }, []);
+  
 
   const hasMoves = (currentBoard) => {
     for (let i = 0; i < BOARD_SIZE; i++) {
