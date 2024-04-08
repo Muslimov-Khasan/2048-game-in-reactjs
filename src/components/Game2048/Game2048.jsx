@@ -58,7 +58,7 @@ const Game2048 = () => {
     if (window.innerWidth >= 768 && window.innerHeight >= 768 && isGameMode) {
       openFullScreen();
     }
-  
+
     return () => {
       // Reset styles when component unmounts or not in game mode
       document.documentElement.style.width = "";
@@ -67,34 +67,12 @@ const Game2048 = () => {
       document.documentElement.style.overflow = "";
     };
   }, [isGameMode]);
-  
+
   // Check if the screen size is suitable for full screen
   if (window.innerWidth >= 768 && window.innerHeight >= 768) {
     openFullScreen();
   }
 
-  const sendScoreToApi = async (id, telegramId, score) => {
-    try {
-      const response = await fetch("https://khasangame.onrender.com/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          telegram_id: telegramId,
-          score: score,
-        }),
-      });
-  
-      if (!response.ok) {
-        console.error("Failed to send score to API:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error while sending score to API:", error.message);
-    }
-  };
-  
 
 
   const moveUp = (currentBoard) => {
@@ -238,41 +216,38 @@ const Game2048 = () => {
     }
   };
   useEffect(() => {
-    const storedHighScore = localStorage.getItem("highScore");
+    let storedHighScore = localStorage.getItem("highScore");
     if (storedHighScore) {
       setHighScore(parseInt(storedHighScore, 10));
-      // Assuming you have an 'id' and 'telegramId' (replace with actual values)
-      sendScoreToApi("your-id", "your-telegram-id", parseInt(storedHighScore, 10));
+ 
     }
   }, []);
-  
 
   const hasMoves = (currentBoard) => {
     for (let i = 0; i < BOARD_SIZE; i++) {
-        for (let j = 0; j < BOARD_SIZE; j++) {
-            const currentCell = currentBoard[i][j];
+      for (let j = 0; j < BOARD_SIZE; j++) {
+        const currentCell = currentBoard[i][j];
 
-            // Check neighboring cells to the right
-            if (
-                j < BOARD_SIZE - 1 &&
-                (currentCell === null || currentCell === currentBoard[i][j + 1])
-            ) {
-                return true;
-            }
-
-            // Check neighboring cells below
-            if (
-                i < BOARD_SIZE - 1 &&
-                (currentCell === null || currentCell === currentBoard[i + 1][j])
-            ) {
-                return true;
-            }
+        // Check neighboring cells to the right
+        if (
+          j < BOARD_SIZE - 1 &&
+          (currentCell === null || currentCell === currentBoard[i][j + 1])
+        ) {
+          return true;
         }
+
+        // Check neighboring cells below
+        if (
+          i < BOARD_SIZE - 1 &&
+          (currentCell === null || currentCell === currentBoard[i + 1][j])
+        ) {
+          return true;
+        }
+      }
     }
 
     return false;
-};
-
+  };
 
   const GameOverModal = () => (
     <Modal

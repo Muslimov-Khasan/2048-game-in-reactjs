@@ -3,7 +3,7 @@ import Game2048 from "./components/Game2048/Game2048";
 
 const App = () => {
   return (
-    <div>
+    <div className="container ">
       <Game2048 />
     </div>
   );
